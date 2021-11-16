@@ -1,8 +1,9 @@
 
 def somma_liste(the_list):
-  som = 0
-  for item in the_list:
-    som = som + item  
+  som=0
+  for number in the_list:
+    som = som + number  
+  print('Risultato: {}'. format(som))  
   return som  
 
 
