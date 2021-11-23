@@ -16,8 +16,7 @@ class CSVFile():
         value = elements[1]
 
         first_list = [elements[0], elements[1]]
-        finish_list.append(float(element))
-        
+        finish_list.append(float(element))    
     my_file.close()
     return finish_list
 
