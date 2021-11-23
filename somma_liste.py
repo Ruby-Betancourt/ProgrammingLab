@@ -1,4 +1,7 @@
+""" commento?? """
 
+
+#somma gli esementi di una lista
 def somma_liste(the_list):
   som=0
   for number in the_list:
