@@ -24,6 +24,18 @@ class CSVFile():
         #controllo errori
         if not isinstance(start, int):
             raise Exception('start = "{}" non è un intero ma è di tipo {}'. format(start, type(start)))
+
+        if start<0 or end<0:
+            start = abs(start)
+            end = abs(end) 
+
+        if start>end:
+            temp = start
+            start = end 
+            end = temp
+            print('Forse hai invertito start e end start non può essere maggiore di end')
+
+           
         
 
         #apro il file txt
@@ -51,7 +63,7 @@ class CSVFile():
 
 
 my_file = CSVFile('sales.txt')
-print(my_file.get_data(5.4,10))
+print(my_file.get_data(10,5))
 
 #error_file = CSVFile(32)
 
