@@ -1,7 +1,11 @@
 class CSVFile():
-  #inizializzo la classe
+    #inizializzo la classe
     def __init__(self, name):
-         self.name = name
+        self.name = name
+        #alzare un'eccezione
+        if not isinstance(self.name, str):
+            raise Exception('il nome "{}" non è una stringa'. format(self.name))
+
 
     def get_data(self):
         #inizializzo futura la lista di liste
@@ -31,7 +35,9 @@ class CSVFile():
 
 
 my_file = CSVFile('sales.txt')
-print(my_file.get_data())
+#print(my_file.get_data())
+
+error_file = CSVFile(32)
 
 class NumericalCSVFile(CSVFile):
     pass
@@ -53,7 +59,7 @@ class NumericalCSVFile(CSVFile):
         return use            
 
 file_p2 = NumericalCSVFile('sales.txt')
-print(file_p2.get_data())
+#print(file_p2.get_data())
 
 
 
