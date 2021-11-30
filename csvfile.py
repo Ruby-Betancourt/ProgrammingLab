@@ -7,20 +7,34 @@ class CSVFile():
             raise Exception('il nome "{}" non è una stringa'. format(self.name))
 
 
-    def get_data(self):
+    def get_data(self, start=None, end=None):
         #inizializzo futura la lista di liste
         finish_list = []
 
+        
+
+        #sanificazione
+        if type(start)==str:
+            if start.isdigit()==True:
+                start=int(start)
+        if type(start)==float:
+            start=int(start)        
+
+
+        #controllo errori
+        if not isinstance(start, int):
+            raise Exception('start = "{}" non è un intero ma è di tipo {}'. format(start, type(start)))
+        
+
         #apro il file txt
-        #my_file = open('sales.txt', 'r')
+        my_file = open('sales.txt', 'r')
 
-        try:
-            my_file = open('sale.txt', 'r')
-        except FileNotFoundError:
-            print('Non esiste il file "sale.txt"') 
-            print('il file giusto da usare si chiama "sales.txt"') 
-            my_file = open('sales.txt', 'r')
-
+        #try:
+        #    my_file = open('sale.txt', 'r')
+        #except FileNotFoundError:
+        #    print('Non esiste il file "sale.txt"') 
+        #    print('il file giusto da usare si chiama "sales.txt"') 
+        #    my_file = open('sales.txt', 'r')
 
         for line in my_file:
             #split gli element 
@@ -28,16 +42,18 @@ class CSVFile():
             #aggiungo ogni lista nella lista finale
             if elements[0] != 'Date':
                 finish_list.append(elements)  
-        
+            
+        finish_list=finish_list[start:end]
+
         #chiudo il file e return la lista di liste
         my_file.close()
         return finish_list
 
 
 my_file = CSVFile('sales.txt')
-#print(my_file.get_data())
+print(my_file.get_data(5.4,10))
 
-error_file = CSVFile(32)
+#error_file = CSVFile(32)
 
 class NumericalCSVFile(CSVFile):
     pass
