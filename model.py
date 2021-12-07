@@ -15,7 +15,7 @@ class IncrementModel(Model):
         
         #controllo se tutti gli elementi della lista siano interi
         for item in data:
-            if not isinstance(item, int) or not isinstance(item, float):
+            if not isinstance(item, int) and not isinstance(item, float):
                 raise TypeError ('I dati non sono numeri')
 
         #controllo che sia sufficienti
