@@ -20,7 +20,7 @@ class CSVFile():
 
           #controllo errori
           if not isinstance(start, int):
-            raise Exception('start = "{}" non è un intero ma è di tipo {}'. format(start, type(start)))
+            raise TypeError('start = "{}" non è un intero ma è di tipo {}'. format(start, type(start)))
 
           if start<0 or end<0:
             start = abs(start)
