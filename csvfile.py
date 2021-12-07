@@ -10,36 +10,31 @@ class CSVFile():
     def get_data(self, start=None, end=None):
         #inizializzo futura la lista di liste
         finish_list = []
-
-        
-
-        #sanificazione
-        if type(start)==str:
+        if start is not None:
+          #sanificazione
+          if type(start)==str:
             if start.isdigit()==True:
                 start=int(start)
-        if type(start)==float:
+          if type(start)==float:
             start=int(start)        
 
-
-        #controllo errori
-        if not isinstance(start, int):
+          #controllo errori
+          if not isinstance(start, int):
             raise Exception('start = "{}" non è un intero ma è di tipo {}'. format(start, type(start)))
 
-        if start<0 or end<0:
+          if start<0 or end<0:
             start = abs(start)
             end = abs(end) 
 
-        if start>end:
+          if start>end:
             temp = start
             start = end 
             end = temp
             print('Forse hai invertito start e end start non può essere maggiore di end')
 
-           
-        
 
         #apro il file txt
-        my_file = open('sales.txt', 'r')
+        my_file = open(self.name, 'r')
 
         #try:
         #    my_file = open('sale.txt', 'r')
@@ -63,7 +58,7 @@ class CSVFile():
 
 
 my_file = CSVFile('sales.txt')
-print(my_file.get_data(10,5))
+print(my_file.get_data(0,3))
 
 #error_file = CSVFile(32)
 
