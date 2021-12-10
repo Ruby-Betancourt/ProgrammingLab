@@ -29,7 +29,7 @@ class IncrementModel(Model):
         incr_med = 0
         prediction = 0
         prec=data[0]
-        for item in data[1:]:
+        for item in data:
             #Logica per la predizione
             incr_med += item-prec
             prec = item
@@ -37,6 +37,33 @@ class IncrementModel(Model):
         prediction = incr_med/(len(data)-1) + data[-1]   
         return prediction 
 
+class FitIncrementModel(IncrementModel):
+    def fit(self, data):
+        incr_prec = 0
+        prec = data[0]
+        predict_prec = 0
+        for item in data[:-3]:
+            incr_prec += item-prec
+            prec = item
+        predict_prec = incr_prec/(len(data)-4)
+        print(predict_prec)
+        self.global_avg_incrementi = predict_prec
+
+    def predict(self, data):
+        predict_3 = super().predict(data)
+        predict_3 -= data[-1]
+        #predict_prec = fit(self.data)
+        print(predict_3)
+       
+        prediction = (predict_3 + self.global_avg_incrementi)/2 + data[-1]
+        return prediction
+     
+
+
 Increment_Model = IncrementModel()
 dati_sold = [50,52,60]
-print(Increment_Model.predict(dati_sold))                      
+#print(Increment_Model.predict(dati_sold))
+Fit_Increment_Model = FitIncrementModel()    
+more_dati_sold = [8,19,31,41,50,52,60] 
+Fit_Increment_Model.fit(more_dati_sold)
+print(Fit_Increment_Model.predict(dati_sold))

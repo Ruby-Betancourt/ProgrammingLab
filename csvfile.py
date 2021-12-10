@@ -8,30 +8,52 @@ class CSVFile():
 
 
     def get_data(self, start=None, end=None):
+    #check errori
+        if start is not None:
+            #1 sanificazione in interi
+            if type(start)==str:
+                if start.isdigit()==True:
+                    start=int(start)
+            if type(start)==float:
+                start=int(start)        
+
+            #1 controllo typo start
+            if not isinstance(start, int):
+                raise TypeError('start = "{}" non è un intero ma è di tipo {}'. format(start, type(start)))
+
+            #2 controllo possibili numeri negativi
+            if start<0:
+                start = abs(start) 
+
+        if end is not None:
+            #1 sanificazione in interi
+            if type(end)==str:
+                if end.isdigit()==True:
+                    end=int(end)
+            if type(end)==float:
+                end=int(end)        
+
+            #1 controllo typo start
+            if not isinstance(end, int):
+                raise TypeError('end = "{}" non è un intero ma è di tipo {}'. format(end, type(end)))
+
+            #2 controllo possibili numeri negativi
+            if end<0:
+                end = abs(end) 
+
+        if start is not None and end is not None:
+            #3 controllo ordine start e end
+            if start>end:
+                temp = start
+                start = end 
+                end = temp
+                print('Forse hai invertito start e end start non può essere maggiore di end')
+        
+
+
+    #inizio funzione
         #inizializzo futura la lista di liste
         finish_list = []
-        if start is not None:
-          #sanificazione
-          if type(start)==str:
-            if start.isdigit()==True:
-                start=int(start)
-          if type(start)==float:
-            start=int(start)        
-
-          #controllo errori
-          if not isinstance(start, int):
-            raise TypeError('start = "{}" non è un intero ma è di tipo {}'. format(start, type(start)))
-
-          if start<0 or end<0:
-            start = abs(start)
-            end = abs(end) 
-
-          if start>end:
-            temp = start
-            start = end 
-            end = temp
-            print('Forse hai invertito start e end start non può essere maggiore di end')
-
 
         #apro il file txt
         my_file = open(self.name, 'r')
@@ -58,7 +80,7 @@ class CSVFile():
 
 
 my_file = CSVFile('sales.txt')
-print(my_file.get_data(0,3))
+print(my_file.get_data(None,10))
 
 #error_file = CSVFile(32)
 
@@ -71,7 +93,6 @@ class NumericalCSVFile(CSVFile):
 
 
         for item in data:
-
             for x in item[1:]:
                 try:
                     x = float(x)
