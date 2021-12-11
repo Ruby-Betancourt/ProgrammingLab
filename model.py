@@ -46,23 +46,29 @@ class FitIncrementModel(IncrementModel):
             incr_prec += item-prec
             prec = item
         predict_prec = incr_prec/(len(data)-4)
-        print(predict_prec)
-        self.global_avg_incrementi = predict_prec
+        #print('Incremento mesi passati: {}'.format(predict_prec))
+        self.global_avg_incr = predict_prec
 
     def predict(self, data):
         predict_3 = super().predict(data)
         predict_3 -= data[-1]
-        #predict_prec = fit(self.data)
-        print(predict_3)
-       
-        prediction = (predict_3 + self.global_avg_incrementi)/2 + data[-1]
+        #print('Incremento ultimi tre mesi: {}'.format(predict_3))
+        
+        try:
+            prediction = (predict_3 + self.global_avg_incr)/2 + data[-1]
+            #print('Try: {}'.format(prediction))
+        except:
+            print('Non hai effetuuato il fit la vecchia prediction era: ')
+            prediction = predict_3 + data[-1]
+            #print('Except: {}'. format(prediction))
+
         return prediction
      
-
 
 Increment_Model = IncrementModel()
 dati_sold = [50,52,60]
 #print(Increment_Model.predict(dati_sold))
+
 Fit_Increment_Model = FitIncrementModel()    
 more_dati_sold = [8,19,31,41,50,52,60] 
 Fit_Increment_Model.fit(more_dati_sold)
