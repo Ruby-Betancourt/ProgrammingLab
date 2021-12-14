@@ -80,7 +80,7 @@ class CSVFile():
 
 
 my_file = CSVFile('sales.txt')
-print(my_file.get_data(None,10))
+#print(my_file.get_data(None,10))
 
 #error_file = CSVFile(32)
 
