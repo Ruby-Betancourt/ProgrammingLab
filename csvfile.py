@@ -95,7 +95,7 @@ class NumericalCSVFile(CSVFile):
         for item in data:
             for x in item[1:]:
                 try:
-                    x = float(x)
+                    x = float(x) #int aggiunto
                     use.append(x)
                 except ValueError:    
                     print('il tipo dell\'item è: {}'.format(type(x)))

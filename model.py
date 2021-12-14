@@ -66,11 +66,11 @@ class FitIncrementModel(IncrementModel):
      
 
 Increment_Model = IncrementModel()
-dati_sold = [50,52,60]
-#print(Increment_Model.predict(dati_sold))
+dati_sold = [52,60,67]
+print(Increment_Model.predict(dati_sold))
 
 Fit_Increment_Model = FitIncrementModel()    
-fit_dati_sold = [8,19,31,41] 
+fit_dati_sold = [8,19,31,41,50] 
 Fit_Increment_Model.fit(fit_dati_sold)
 print(Fit_Increment_Model.predict(dati_sold))
 
