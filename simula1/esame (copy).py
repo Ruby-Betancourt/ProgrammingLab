@@ -10,6 +10,9 @@ class MovingAverage():
         somma = 0
 
         #Casi particolari
+        if not isinstance(self.w, int):
+            raise ExamException('TypeError, la lunghezza della finestra non è un intero')
+
         if not isinstance(lista, list):
             raise ExamException('TypeError, l\'input non è una lista')
 
@@ -40,8 +43,3 @@ class MovingAverage():
                 somma = 0
 
         return media        
-
-
-moving_averange = MovingAverage(4)
-result = moving_averange.compute([2,4,8,16])
-print(result)
