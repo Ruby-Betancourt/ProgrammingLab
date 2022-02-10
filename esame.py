@@ -10,7 +10,7 @@ class CSVFile():
         
         #controllo che sia una stringa
         if not isinstance(self.name, str):
-            raise ExamException('TypeError, "{}" non è una stringa'. format(self.name))
+            raise ExamException('TypeError, "{}" non è una stringa'. format(self.name))    
     
 
     def get_data(self):
@@ -23,6 +23,13 @@ class CSVFile():
         except:
             #in caso non riesca ad aprire il file
             raise ExamException('NotFoundError, file non esiste o non è legibile')
+
+        #controllo che il file non sia vuoto
+        count=0
+        for line in my_file:
+            count+=1
+        if count==0:
+            raise ExamException('Error, il file è vuoto')    
 
         for line in my_file:
             #separo la stringa sulla virgola
@@ -106,8 +113,16 @@ class CSVTimeSeriesFile(CSVFile):
 
 
 def compute_avg_monthly_difference(lista, start, end):
-    #controlli sull'anno iniziale (start) e finale (end)
+    #controllo che l'input lista sia del genere giusto
+    if not isinstance(lista, list):
+        raise ExamException('TypeError, "{}" non è una lista'. format(lista))
 
+    #controllo che abbia abbastanza element
+    for l in lista:
+        if len(l)<2:
+            raise ExamException('Error, non ci sono abbastanza elementi nella lista')
+
+    #controlli sull'anno iniziale (start) e finale (end)
     #controllo che siano una stringa
     if not isinstance(start, str):
         raise ExamException('TypeError, l\'anno iniziale non è una stringa')
@@ -136,11 +151,11 @@ def compute_avg_monthly_difference(lista, start, end):
 
 
     #controllo che siano compresi nel file 
-    #if start<1949:
-     #   raise ExamException('Error, l\'anno iniziale non compare nel file')
+    if start<1949:
+        raise ExamException('Error, l\'anno iniziale non compare nel file')
 
-    #if end>1960:
-     #   raise ExamException('Error, l\'anno finale non compare nel file')
+    if end>1960:
+        raise ExamException('Error, l\'anno finale non compare nel file')
 
     #controllo che l'ordine delle date sia giusto
     if start>end:
