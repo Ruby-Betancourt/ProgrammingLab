@@ -20,6 +20,8 @@ class CSVFile():
         #provo ad aprire il file
         try:
             my_file = open(self.name, 'r')
+
+            
         except:
             #in caso non riesca ad aprire il file
             raise ExamException('NotFoundError, file non esiste o non è legibile')
@@ -28,8 +30,9 @@ class CSVFile():
         count=0
         for line in my_file:
             count+=1
-        if count==0:
-            raise ExamException('Error, il file è vuoto')    
+        if count == 0:
+            raise ExamException('Error, il file è vuoto') 
+                
 
         for line in my_file:
             #separo la stringa sulla virgola
